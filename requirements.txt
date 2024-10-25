@@ -1,4 +1,5 @@
 Flask==2.2.2            # For the web application
+Werkzeug==2.2.3         # Ensure compatibility with Flask
 pandas==1.5.3           # For data manipulation and analysis
 scikit-learn==1.2.0     # For machine learning algorithms and metrics
 joblib==1.2.0           # For saving and loading models
