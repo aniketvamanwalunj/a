@@ -4,7 +4,7 @@ This project is a web application that detects whether a given website URL is sa
 
 ## **Features**
 - **Input any URL** to check if it is safe or potentially harmful.
-- **Classifies URLs** using a Random Forest model trained on a dataset of URLs.
+- **Classifies URLs** using a SVM model trained on a dataset of URLs.
 - **Provides a user-friendly interface** with immediate feedback on URL safety.
 
 ## **Technologies Used**
@@ -31,7 +31,6 @@ malware-detection/
 ├── malware_urls.csv         # Dataset for training the model
 ├── templates/               # HTML templates for the Flask application
 │   ├── index.html           # Home page for URL input
-│   └── project_details.html # Page with project information and details
 ├── model.pkl                # Pre-trained machine learning model
 ├── vectorizer.pkl           # Vectorizer used to transform URLs into features
 ├── label_encoder.pkl        # Label encoder for classification
@@ -39,7 +38,7 @@ malware-detection/
 
 ##Key Project Details
 - **Development Date:** 23-10-2024
-- **Accuracy:** 97.11% in detecting malicious URLs.
+- **Accuracy:** 97.13% in detecting malicious URLs.
 
 ##Contact
 For any questions, suggestions, or feedback, please feel free to reach out:
