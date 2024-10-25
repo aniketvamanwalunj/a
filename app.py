@@ -10,7 +10,7 @@ import joblib
 app = Flask(__name__)
 
 # Load the saved model, vectorizer, and label encoder
-model = joblib.load('model.pkl')
+model = joblib.load('svm_model.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
 label_encoder = joblib.load('label_encoder.pkl')
 
