@@ -1,5 +1,5 @@
 """
-Created on Tuesday, 15 Oct 2024
+Created on Monday, 14 Oct 2024
 
 @author: Aniket
 """
@@ -7,44 +7,44 @@ Created on Tuesday, 15 Oct 2024
 from flask import Flask, request, render_template
 import joblib
 
-# Step 1: Initialize the Flask app
 app = Flask(__name__)
 
-# Step 2: Load the trained model and vectorizer
-try:
-    model = joblib.load('svm_model.pkl')  # Ensure you use correct model file names
-    vectorizer = joblib.load('vectorizer.pkl')
-except Exception as e:
-    print(f"Error loading model or vectorizer: {e}")
+# Load the saved model, vectorizer, and label encoder
+model = joblib.load('model.pkl')
+vectorizer = joblib.load('vectorizer.pkl')
+label_encoder = joblib.load('label_encoder.pkl')
 
-# Step 3: Define the route for the homepage
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Step 4: Define the route for processing URL checks
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        url = request.form.get('url')  # Get the URL from the form
-        if url:  # Check if the input is not empty
-            try:
-                data = [url]  # Prepare data for vectorization
-                vect = vectorizer.transform(data)  # Vectorize the input URL
-                prediction = model.predict(vect)  # Predict using the model
+        url = request.form['url']
+        
+        try:
+            # Vectorize the input URL
+            url_vectorized = vectorizer.transform([url])
+            prediction = model.predict(url_vectorized)
+            label = label_encoder.inverse_transform(prediction)[0]
+            
+            if label == 'benign':
+                result = 'The website is Safe!'
+                result_class = 'safe'
+            else:
+                result = 'The website is not safe!'
+                result_class = 'not-safe'
+                
+            return render_template('index.html', result=result, result_class=result_class)
+        
+        except Exception as e:
+            return f"An error occurred: {str(e)}"
 
-                # Step 5: Return the result
-                if prediction[0] == 0:
-                    result = "The website is safe!"
-                else:
-                    result = "The website is not safe!"
-            except Exception as e:
-                result = f"An error occurred during prediction: {e}"
-        else:
-            result = "Please enter a valid URL!"
+@app.route('/project_details')
+def project_details():
+    return render_template('project_details.html')
 
-        return render_template('index.html', result=result)
-
-# Step 6: Run the app
 if __name__ == "__main__":
-    app.run(debug=True)
+    # Allow Flask to be accessible from other devices on the same network
+    app.run(host='0.0.0.0', port=5000)  # You can change the port if needed
