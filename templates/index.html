@@ -2,26 +2,29 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detecting Malware Websites</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"> <!-- Font Awesome CDN -->
     <style>
         body {
             font-family: Arial, sans-serif;
             background-color: #f0f0f0;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column;
             margin: 0;
-            padding: 20px; /* Added padding for better spacing */
         }
         .container {
-            width: 500px;
-            padding: 30px;
+            height: 60vh; /* Height remains the same */
+            width: 600px; /* Increased width */
+            padding: 40px; /* Padding remains the same */
             background-color: white;
             border-radius: 10px;
             box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s, box-shadow 0.3s;
+            margin: auto;
         }
         .container:hover {
             transform: scale(1.05);
@@ -44,7 +47,6 @@
         }
         input[type="text"] {
             border-color: #6c757d;
-            cursor: text; /* Added pointer cursor for the input */
         }
         input[type="text"]:focus {
             border-color: #28a745;
@@ -67,41 +69,45 @@
             margin-top: 25px;
             color: black;
         }
-        .not-safe {
-            color: red;
-        }
         .safe {
             color: green;
         }
-
-        /* Responsive design for mobile */
-        @media screen and (max-width: 600px) {
-            .container {
-                width: 100%;
-                padding: 20px;
-            }
-            input[type="text"], input[type="submit"] {
-                font-size: 16px;
-                padding: 12px;
-            }
-            .result {
-                font-size: 18px;
-            }
+        .not-safe {
+            color: red;
+        }
+        .footer {
+            margin-top: auto;
+            text-align: center;
+        }
+        .footer a {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        .footer a:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>Detecting Malware Websites</h2>
+        <h2><i class="fas fa-shield-alt"></i> Detecting Malware Websites</h2> <!-- Added icon here -->
         <form action="/predict" method="POST">
             <input type="text" name="url" placeholder="Enter URL" required>
             <input type="submit" value="Check">
         </form>
         {% if result %}
-        <div class="result {% if result == 'The website is not safe!' %}not-safe{% else %}safe{% endif %}">
+        <div class="result {{ result_class }}">
             {{ result }}
         </div>
         {% endif %}
+    </div>
+    <div class="footer">
+        <a href="/project_details">Project Details</a>
     </div>
 </body>
 </html>
