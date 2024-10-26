@@ -15,7 +15,7 @@ This project is a web application that detects whether a given website URL is sa
 - **HTML/CSS**: For the front-end user interface.
 
 ## **Algorithm Used**
-- **Random Forest**: Implemented using the `SVC` from scikit-learn.
+- **SVC**: Implemented using the `SVC` from scikit-learn.
 
 ## **Installation**
 1. **Clone the repository**: 
